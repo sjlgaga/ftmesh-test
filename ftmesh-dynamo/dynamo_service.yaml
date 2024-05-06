@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dynamodb-local-service
+  namespace: dynamo
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 31919
+      protocol: TCP
+  selector:
+    app: dynamodb-local

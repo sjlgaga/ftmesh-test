@@ -1,0 +1,5 @@
+nginx            only_request        with_attached_state      synchronize_through_separate_request
+0.5K(+0.5K)       1539.56               1674.20                     4462.08
+1.5K(+0.5K)       1550.48               1682.92                     4540.48
+10K(+0.5K)        1589.36               1774.08                     4600.32
+10K(+10K)         1589.36               1924.80                     4708.98

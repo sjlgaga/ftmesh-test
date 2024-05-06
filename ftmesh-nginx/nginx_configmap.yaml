@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configmap
+  namespace: ng
+data:
+  example.txt: |
+    Hello, this is a test file.
+    You can access me via Nginx server.

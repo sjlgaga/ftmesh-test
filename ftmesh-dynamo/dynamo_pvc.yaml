@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dynamodb-data-pvc
+  namespace: dynamo
+spec:
+  accessModes:
+    - ReadWriteOnce  # 确保 PVC 请求的访问模式与存储类兼容
+  storageClassName: "local-path"
+  resources:
+    requests:
+      storage: 5Gi  # 请求 5GB 存储空间

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: envoy-proxy
+  namespace: exp
+  labels:
+    k8s-app: ftmesh
+spec:
+  selector:
+    matchLabels:
+      name: envoy-proxy
+  template:
+    metadata:
+      labels:
+        name: envoy-proxy
+    spec:
+      hostPID: true
+      hostIPC: true
+      hostNetwork: true
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: envoy
+        image: nishikinocurtis/ftmesh-envoy:v1.26.8
+        resources:
+          limits:
+            memory: 16Gi
+            cpu: "8"
+          requests:
+            memory: 8Gi
+            cpu: "8"
+        args:
+        - "-c"
+        - "/etc/envoy/configs/conf.yaml"
+        ports:
+        - containerPort: 10728
+          name: envoyudp
+          protocol: UDP
+          hostPort: 10728
+        - containerPort: 10729
+          name: envoytcp
+          protocol: TCP
+          hostPort: 10729
+        volumeMounts:
+        - name: config
+          mountPath: "/etc/envoy/configs"    
+      volumes:
+      - name: config
+        configMap:
+          name: envoy-config  
+---

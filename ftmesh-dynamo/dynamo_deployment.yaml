@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamodb-local
+  namespace: dynamo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dynamodb-local
+  template:
+    metadata:
+      labels:
+        app: dynamodb-local
+    spec:
+      hostNetwork: true
+      containers:
+      - name: dynamodb-local
+        image: amazon/dynamodb-local:1.19.0
+        args: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-dbPath", "/home/dynamodblocal/data"]
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: dynamo-local-storage
+          mountPath: /home/dynamodblocal/data
+      volumes:
+      - name: dynamo-local-storage
+        persistentVolumeClaim:
+          claimName: dynamodb-data-pvc  # 引用前面创建的 PVC

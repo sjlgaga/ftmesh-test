@@ -1,0 +1,5 @@
+dynamodb        only_request        with_attached_state      synchronize_through_separate_request
+0.5K(+0.5K)       2678.84               2926.30                     6774.92
+1.5K(+0.5K)       2835.12               3016.84                     7114.72
+10K(+0.5K)        3325.60               3596.80                     7221.02
+10K(+10K)         3325.60               4411.28                     7657.8

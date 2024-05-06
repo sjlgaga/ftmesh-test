@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-control-plane
+  namespace: exp
+  labels:
+    k8s-app: ftmesh
+spec:
+  selector:
+    matchLabels:
+      k8s-app: ftmesh
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: ftmesh
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exists
+      containers:
+      - name: controller
+        image: sjlgaga/go-control-plane:latest
+        ports:
+        - containerPort: 10901
+          name: control
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2Gi
+          limits:
+            cpu: "1"
+            memory: 4Gi           		
