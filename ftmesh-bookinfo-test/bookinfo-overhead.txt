@@ -1,0 +1,5 @@
+bookinfo        only_request        with_attached_state      synchronize_through_separate_request
+0.5K(+0.5K)       13865.54              14346.96                    77030.81
+1.5K(+0.5K)       14220.08              14932.73                    82631.88
+10K(+0.5K)        15674.73              16268.46                    84855.81
+10K(+10K)         15674.73              19715.61                    88413.19
